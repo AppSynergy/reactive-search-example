@@ -1,5 +1,10 @@
 <template>
   <div id="app">
+
+    <nav class="navbar fixed-top navbar-light bg-faded">
+      <a class="navbar-brand" href="#">Reactive Search Engine Tech Demo</a>
+    </nav>
+
     <div class="container">
 
       <div class="search-ui card">
@@ -26,8 +31,9 @@
         </div>
       </div>
 
-      <div class="search-results row">
-        <div v-for="villa in villas" class="col col-12 col-sm-6 col-md-4 col-xl-3">
+      <transition-group class="search-results row" name="fade" tag="div">
+        <div v-for="villa in villas" :key="villa.id"
+          class="col col-12 col-sm-6 col-md-4 col-xl-3">
           <div class="card my-2">
             <div class="card-block">
               <h4 class="card-title">{{ villa.title }}</h4>
@@ -42,7 +48,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </transition-group>
 
     </div>
   </div>
@@ -79,16 +85,29 @@ export default App
 body
   background-color: #f2f2f6
 
+nav
+  border-bottom: 2px solid white
+  box-shadow: 2px 0 4px #aaa
+
 .search-ui
-  margin-top: 40px
+  margin-top: 80px
   padding: 20px 15px
 
 .search-results
   background-color: white
   padding: 10px 5px
   margin: 40px 0 80px
+  transition: all 1s
   .card
     min-height: 15em
 
+.fade-enter-active, .fade-leave-active
+  transition: opacity .5s
+
+.fade-enter, .fade-leave-to
+  opacity: 0
+
+.fade-move
+  transition: transform 1s
 
 </style>
